@@ -1,14 +1,14 @@
 //navbar.scss
 .navbar {
-    width: 100%;
+    // min-width: 360px;
     min-height: 100px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: #0a1019;
-    transition: all 0.7s ease-in;
 }
+// .window-nav {
+//     // margin: 12px;
+//     width: 100%;
+// }
+
 //IMPORTANT
 .scrolled {
     position: fixed;
@@ -24,4 +24,17 @@
 }
 body {
     margin: 0px;
+}
+
+@media screen and (min-width: 400px) {
+    .navbar {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #0a1019;
+        transition: all 0.7s ease-in;
+        // padding: 10px 15px 10px 15px;
+    }
 }

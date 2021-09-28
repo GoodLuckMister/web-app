@@ -2,76 +2,76 @@ $bg-color: yellow;
 $border-color: red;
 
 .app {
-  font-family: helvetica, arial, sans-serif;
-  padding: 2em;
-  border: 5px solid $border-color;
+    font-family: helvetica, arial, sans-serif;
+    padding: 2em;
+    border: 5px solid $border-color;
 
-  p {
-    background-color: $bg-color;
-  }
+    p {
+        background-color: $bg-color;
+    }
 }
 body {
-  margin: 0;
+    margin: 0;
 }
-.i {  
-  color: #ee32db;
-  position: relative;
+.i {
+    color: #ee32db;
+    position: relative;
 }
 .i:before {
-  content: "ı";
-  position: absolute; 
-  color: black;
+    content: 'ı';
+    position: absolute;
+    color: black;
 }
 
 .__react_component_tooltip .multi-line {
-  text-align: left !important;
-  font-family: Inter;
-  font-size: 1em;
+    text-align: left !important;
+    font-family: Inter;
+    font-size: 1em;
 }
 .__react_component_tooltip span:first-of-type {
-  font-weight: 800 !important;
-  font-family: Inter;
-  font-size: 1.2em;
+    font-weight: 800 !important;
+    font-family: Inter;
+    font-size: 1.2em;
 }
 .Toastify__toast--default {
-  background: white !important;
-  font-family: Inter !important;
-  font-size: 1em !important;
-  line-height: 2 !important;
-  color: #5e5d75 !important;
+    background: white !important;
+    font-family: Inter !important;
+    font-size: 1em !important;
+    line-height: 2 !important;
+    color: #5e5d75 !important;
 }
 .Toastify__toast--success {
-  background: white !important;
-  font-family: Inter !important;
-  font-size: 1em !important;
-  line-height: 2 !important;
-  color: #5e5d75 !important;
+    background: white !important;
+    font-family: Inter !important;
+    font-size: 1em !important;
+    line-height: 2 !important;
+    color: #5e5d75 !important;
 }
 .Toastify__toast--warning {
-  background: white !important;
-  font-family: Inter !important;
-  font-size: 1em !important;
-  line-height: 2 !important;
-  color: #5e5d75 !important;
+    background: white !important;
+    font-family: Inter !important;
+    font-size: 1em !important;
+    line-height: 2 !important;
+    color: #5e5d75 !important;
 }
 .Toastify__toast--error {
-  background: white !important;
-  font-family: Inter !important;
-  font-size: 1em !important;
-  line-height: 2 !important;
-  color: #5e5d75 !important;
+    background: white !important;
+    font-family: Inter !important;
+    font-size: 1em !important;
+    line-height: 2 !important;
+    color: #5e5d75 !important;
 }
 ::placeholder {
-  color: #adb5c5;
-  font-weight: normal;
+    color: #adb5c5;
+    font-weight: normal;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+    -moz-appearance: textfield;
 }
