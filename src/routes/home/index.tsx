@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useObserver } from 'mobx-react';
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { useMediaQuery } from 'react-responsive';
 import { useHistory } from 'react-router-dom';
 
 import { FlexBox, FlexWrap, Loader } from '../../components';
@@ -19,6 +20,16 @@ const Wrapper = styled.div`
     margin-top: 89px;
     margin-left: -126px;
 `;
+const Mobiled = styled.div``;
+
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+    return isMobile ? children : null;
+};
 const Categories: React.FC = () => {
     const [width] = useWindowSize();
     const user = useUser();
@@ -38,34 +49,57 @@ const Categories: React.FC = () => {
         }
     };
     return useObserver(() => (
-        <Wrapper>
-            <FlexBox style={{ margin: '2% 0% 0.5% 0%' }}>
-                <Welcome style={{ margin: '0px 56px 0px 56px' }} />
-                <Scrollbars
-                    style={{ height: '65vh', width: width < 1550 ? '50vw' : '41vw' }}
-                    hideTracksWhenNotNeeded
-                    renderThumbVertical={({ ...props }) => (
-                        <div {...props} style={scrollbarsStyle} />
-                    )}>
-                    <FlexWrap style={{ marginTop: '-10px' }}>
-                        {categories.length === 0 && (
-                            <div style={{ marginLeft: 300, marginTop: 300 }}>
-                                <Loader size={25} />
-                            </div>
-                        )}
-                        {categories.map((category) => (
-                            <Category
-                                onClick={() => onClick(category.id)}
-                                count={category.prosCount}
-                                text={category.label}
-                                key={category.id}
-                                icon={mapIdToIcon(category.id)}
-                            />
-                        ))}
-                    </FlexWrap>
-                </Scrollbars>
-            </FlexBox>
-        </Wrapper>
+        <>
+            <Mobile>
+                <Mobiled>
+                    <Welcome />
+                    {categories.length === 0 && (
+                        <div>
+                            <Loader />
+                        </div>
+                    )}
+                    {categories.map((category) => (
+                        <Category
+                            onClick={() => onClick(category.id)}
+                            count={category.prosCount}
+                            text={category.label}
+                            key={category.id}
+                            icon={mapIdToIcon(category.id)}
+                        />
+                    ))}
+                </Mobiled>
+            </Mobile>
+            <Desktop>
+                <Wrapper>
+                    <FlexBox style={{ margin: '2% 0% 0.5% 0%' }}>
+                        <Welcome style={{ margin: '0px 56px 0px 56px' }} />
+                        <Scrollbars
+                            style={{ height: '65vh', width: width < 1550 ? '50vw' : '41vw' }}
+                            hideTracksWhenNotNeeded
+                            renderThumbVertical={({ ...props }) => (
+                                <div {...props} style={scrollbarsStyle} />
+                            )}>
+                            <FlexWrap style={{ marginTop: '-10px' }}>
+                                {categories.length === 0 && (
+                                    <div style={{ marginLeft: 300, marginTop: 300 }}>
+                                        <Loader size={25} />
+                                    </div>
+                                )}
+                                {categories.map((category) => (
+                                    <Category
+                                        onClick={() => onClick(category.id)}
+                                        count={category.prosCount}
+                                        text={category.label}
+                                        key={category.id}
+                                        icon={mapIdToIcon(category.id)}
+                                    />
+                                ))}
+                            </FlexWrap>
+                        </Scrollbars>
+                    </FlexBox>
+                </Wrapper>
+            </Desktop>
+        </>
     ));
 };
 export default Categories;
