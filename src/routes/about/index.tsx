@@ -78,14 +78,14 @@ const About: React.FC = () => {
                                 <b>iPro’s - independent Professionals .</b>
                             </SubLargeText>
                         </Paragraph>
-                        <Paragraph>
-                            <TextLightGrey style={{ display: 'block' }}>Contact: </TextLightGrey>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <TextLightGrey>Contact: </TextLightGrey>
                             <LinkPretender
                                 href="mailto:business@topipro.com"
-                                style={{ marginLeft: 5 }}>
+                                style={{ marginLeft: 5, fontSize: '16px' }}>
                                 business@topipro.com
                             </LinkPretender>
-                        </Paragraph>
+                        </div>
                     </div>
                 </div>
             </Mobile>
