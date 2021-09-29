@@ -64,7 +64,7 @@ const Categories: React.FC = () => {
                             <div {...props} style={{ ...scrollbarsStyle, display: 'flex' }} />
                         )}>
                         {categories.length === 0 && (
-                            <div style={{ textAlign: 'center' }}>
+                            <div style={{ paddingTop: '25px', textAlign: 'center' }}>
                                 <Loader size={20} />
                             </div>
                         )}
@@ -81,6 +81,7 @@ const Categories: React.FC = () => {
                         </div>
                     </Scrollbars>
                 </div>
+                <div style={{ width: '460px', height: '50px' }}></div>
             </Mobile>
             <Desktop>
                 <Wrapper>

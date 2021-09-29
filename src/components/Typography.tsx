@@ -66,6 +66,12 @@ export const LargeText = styled.div`
     font-weight: 900;
     color: ${colors.darkBlueGrey};
 `;
+export const LargeTextMobile = styled.div`
+    ${inter};
+    font-size: 4em;
+    font-weight: 600;
+    color: ${colors.darkBlueGrey};
+`;
 export const WelcomeText = styled.div`
     ${inter};
     font-size: 2.5em;
