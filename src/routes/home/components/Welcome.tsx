@@ -34,12 +34,17 @@ const Welcome: React.FC<IWelcome> = ({ style }) => {
     return (
         <>
             <Mobile>
-                <div style={{ width: '480px' }}>
+                <div>
                     <WelcomeText>Welcome to</WelcomeText>
                     <LargeText>
                         Top<span className="i">i</span>Pro
                     </LargeText>
-                    <SubLargeText>
+                    <SubLargeText
+                        style={{
+                            paddingLeft: '10px',
+                            paddingRight: '10px',
+                            marginBottom: '10px'
+                        }}>
                         Top-Ipro ( independent professionals ) is a social recommendation engine
                         that empowers customers to choose the best remote{' '}
                         <Tooltip multiline={true} id="ipro" />

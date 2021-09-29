@@ -20,7 +20,6 @@ const Wrapper = styled.div`
     margin-top: 89px;
     margin-left: -126px;
 `;
-const Mobiled = styled.div``;
 
 const Desktop = ({ children }) => {
     const isTablet = useMediaQuery({ minWidth: 481 });
@@ -51,23 +50,37 @@ const Categories: React.FC = () => {
     return useObserver(() => (
         <>
             <Mobile>
-                <Mobiled>
+                <div
+                    style={{
+                        textAlign: 'center',
+                        width: '480px',
+                        fontSize: '11px'
+                    }}>
                     <Welcome />
-                    {categories.length === 0 && (
-                        <div>
-                            <Loader />
+                    <Scrollbars
+                        style={{ height: '65vh', width: '100%' }}
+                        hideTracksWhenNotNeeded
+                        renderThumbVertical={({ ...props }) => (
+                            <div {...props} style={{ ...scrollbarsStyle, display: 'flex' }} />
+                        )}>
+                        {categories.length === 0 && (
+                            <div style={{ textAlign: 'center' }}>
+                                <Loader size={20} />
+                            </div>
+                        )}
+                        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                            {categories.map((category) => (
+                                <Category
+                                    onClick={() => onClick(category.id)}
+                                    count={category.prosCount}
+                                    text={category.label}
+                                    key={category.id}
+                                    icon={mapIdToIcon(category.id)}
+                                />
+                            ))}
                         </div>
-                    )}
-                    {categories.map((category) => (
-                        <Category
-                            onClick={() => onClick(category.id)}
-                            count={category.prosCount}
-                            text={category.label}
-                            key={category.id}
-                            icon={mapIdToIcon(category.id)}
-                        />
-                    ))}
-                </Mobiled>
+                    </Scrollbars>
+                </div>
             </Mobile>
             <Desktop>
                 <Wrapper>
