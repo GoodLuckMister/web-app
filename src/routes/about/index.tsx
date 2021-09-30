@@ -6,7 +6,6 @@ import { useMediaQuery } from 'react-responsive';
 import {
     FlexColumnCenter,
     LargeText,
-    LargeTextMobile,
     LinkPretender,
     SmallTitleBold,
     SubLargeText,
@@ -45,7 +44,7 @@ const About: React.FC = () => {
                         width: '480px',
                         textAlign: 'center'
                     }}>
-                    <LargeTextMobile>About</LargeTextMobile>
+                    <LargeText>About</LargeText>
                     <SubLargeText>
                         We are a unique technology agency that specializes in promoting and branding{' '}
                         <Tooltip multiline={true} id="ipro" />

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import { colors } from '../themes/colors';
 import { FlexRow, Label } from '.';
@@ -34,6 +35,15 @@ export interface ICheckbox {
     disabled?: boolean;
     readOnly?: boolean;
 }
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+
+    return isMobile ? children : null;
+};
 
 export const Checkbox: React.FC<ICheckbox> = ({
     checked,
@@ -74,13 +84,28 @@ export const CheckboxWithLabel: React.FC<ICheckboxWithLabel> = ({
     ...rest
 }) => {
     return (
-        <FlexRow style={style}>
-            <Checkbox readOnly={readOnly} disabled={disabled} {...rest} />
-            <Label
-                data-test={dataTest}
-                style={{ marginLeft: '10px', fontSize: '16px', color: labelColor }}>
-                {label}
-            </Label>
-        </FlexRow>
+        <>
+            <Mobile>
+                <FlexRow style={style}>
+                    <Checkbox readOnly={readOnly} disabled={disabled} {...rest} />
+                    <Label
+                        data-test={dataTest}
+                        style={{ marginLeft: '10px', fontSize: '13px', color: labelColor }}>
+                        {label}
+                    </Label>
+                </FlexRow>
+            </Mobile>
+
+            <Desktop>
+                <FlexRow style={style}>
+                    <Checkbox readOnly={readOnly} disabled={disabled} {...rest} />
+                    <Label
+                        data-test={dataTest}
+                        style={{ marginLeft: '10px', fontSize: '16px', color: labelColor }}>
+                        {label}
+                    </Label>
+                </FlexRow>
+            </Desktop>
+        </>
     );
 };

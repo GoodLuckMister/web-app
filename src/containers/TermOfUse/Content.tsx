@@ -1,5 +1,6 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { useMediaQuery } from 'react-responsive';
 
 import { Li, ProHeader } from '../../components';
 import { useWindowSize } from '../../hooks';
@@ -8,6 +9,15 @@ import { style as scrollbarsStyle } from '../../styles/scrollbars';
 interface IContent {
     style?: React.CSSProperties;
 }
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+
+    return isMobile ? children : null;
+};
 
 const Content: React.FC<IContent> = ({ style }) => {
     const [, height] = useWindowSize();
@@ -43,37 +53,82 @@ const Content: React.FC<IContent> = ({ style }) => {
         'You and TopiPro don’t have any contractual relations. Nothing in these Terms creates a partnership, joint venture, agency, or employment relationship between you and TopiPro'
     ];
     return (
-        <div style={style}>
-            <Scrollbars
-                style={{ height: height < 850 ? '75vh' : '80vh', width: 970 }}
-                hideTracksWhenNotNeeded
-                renderThumbVertical={({ ...props }) => <div {...props} style={scrollbarsStyle} />}>
-                <ProHeader>General Instructions</ProHeader>
-                <ul>
-                    {general.map((g, index) => (
-                        <Li key={index}>{g}</Li>
-                    ))}
-                </ul>
-                <ProHeader>Platform’s concept - usage terms/ rules </ProHeader>
-                <ul>
-                    {concept.map((g, index) => (
-                        <Li key={index}>{g}</Li>
-                    ))}
-                </ul>
-                <ProHeader>Platform’s rules for iPros/ freelancers/ Service providers</ProHeader>
-                <ul>
-                    {rules.map((g, index) => (
-                        <Li key={index}>{g}</Li>
-                    ))}
-                </ul>
-                <ProHeader>Limitation of Liability & Indemnity </ProHeader>
-                <ul>
-                    {limitation.map((g, index) => (
-                        <Li key={index}>{g}</Li>
-                    ))}
-                </ul>
-            </Scrollbars>
-        </div>
+        <>
+            <Mobile>
+                <div>
+                    <Scrollbars
+                        style={{ height: 500, width: 460 }}
+                        hideTracksWhenNotNeeded
+                        renderThumbVertical={({ ...props }) => (
+                            <div {...props} style={scrollbarsStyle} />
+                        )}>
+                        <ProHeader>General Instructions</ProHeader>
+                        <ul>
+                            {general.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>Platform’s concept - usage terms/ rules </ProHeader>
+                        <ul>
+                            {concept.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>
+                            Platform’s rules for iPros/ freelancers/ Service providers
+                        </ProHeader>
+                        <ul>
+                            {rules.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>Limitation of Liability & Indemnity </ProHeader>
+                        <ul>
+                            {limitation.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                    </Scrollbars>
+                </div>
+            </Mobile>
+            <Desktop>
+                <div style={style}>
+                    <Scrollbars
+                        style={{ height: height < 850 ? '75vh' : '80vh', width: 970 }}
+                        hideTracksWhenNotNeeded
+                        renderThumbVertical={({ ...props }) => (
+                            <div {...props} style={scrollbarsStyle} />
+                        )}>
+                        <ProHeader>General Instructions</ProHeader>
+                        <ul>
+                            {general.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>Platform’s concept - usage terms/ rules </ProHeader>
+                        <ul>
+                            {concept.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>
+                            Platform’s rules for iPros/ freelancers/ Service providers
+                        </ProHeader>
+                        <ul>
+                            {rules.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                        <ProHeader>Limitation of Liability & Indemnity </ProHeader>
+                        <ul>
+                            {limitation.map((g, index) => (
+                                <Li key={index}>{g}</Li>
+                            ))}
+                        </ul>
+                    </Scrollbars>
+                </div>
+            </Desktop>
+        </>
     );
 };
 export default Content;

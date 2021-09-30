@@ -9,8 +9,8 @@ const Wrapper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     background: rgba(0, 0, 0, 0.6);
 `;
 const Data = styled.section`

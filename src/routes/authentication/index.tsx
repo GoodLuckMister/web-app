@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Ripple from 'react-ripples';
 import { RouteComponentProps } from 'react-router';
 import { toast } from 'react-toastify';
@@ -28,7 +29,15 @@ const initialLogin = {
     mailAddress: undefined,
     password: undefined
 };
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
 
+    return isMobile ? children : null;
+};
 const Authentication: React.FC<RouteComponentProps> = ({ history }) => {
     const [width, height] = useWindowSize();
     const [activeView, setActiveView] = useState(AvailableAuthView.Login);
@@ -111,46 +120,98 @@ const Authentication: React.FC<RouteComponentProps> = ({ history }) => {
         }
     };
     return (
-        <Wrapper
-            style={{ marginLeft: width > 1500 ? 250 : 90, marginTop: height < 850 ? 30 : 110 }}>
-            <div style={{ marginLeft: 215 }}>
-                <Header />
-                <FlexRow style={{ marginTop: height < 850 ? 15 : 40 }}>
-                    {Object.keys(AvailableAuthView)
-                        .filter((v) => v !== AvailableAuthView.ForgotPassword)
-                        .map((key) => (
-                            <Ripple
-                                key={key}
-                                onClick={() => {
-                                    setActiveView(key as AvailableAuthView);
-                                    setMessage(null);
-                                }}>
-                                <Text
-                                    style={{
-                                        color:
-                                            activeView === key ? colors.fuchsia : colors.slateGrey,
-                                        borderBottom:
-                                            activeView === key
-                                                ? `2px solid ${colors.fuchsia}`
-                                                : 'initial',
-                                        paddingBottom: 5,
-                                        marginRight: 10,
-                                        cursor: 'pointer',
-                                        fontSize: '1.25em'
+        <>
+            <Mobile>
+                <div style={{ textAlign: 'center', width: '475px' }}>
+                    <div style={{ marginBottom: 10 }}>
+                        <Header />
+                    </div>
+                    <FlexRow style={{ justifyContent: 'center' }}>
+                        {Object.keys(AvailableAuthView)
+                            .filter((v) => v !== AvailableAuthView.ForgotPassword)
+                            .map((key) => (
+                                <Ripple
+                                    key={key}
+                                    onClick={() => {
+                                        setActiveView(key as AvailableAuthView);
+                                        setMessage(null);
                                     }}>
-                                    {key}
-                                </Text>
-                            </Ripple>
-                        ))}
-                </FlexRow>
-            </div>
-            <div style={{ marginLeft: 215 }}>
-                <ProHeader style={{ marginTop: 20, color: colors.strongPink, width: 412 }}>
-                    {message}
-                </ProHeader>
-                {views[activeView].component}
-            </div>
-        </Wrapper>
+                                    <Text
+                                        style={{
+                                            color:
+                                                activeView === key
+                                                    ? colors.fuchsia
+                                                    : colors.slateGrey,
+                                            borderBottom:
+                                                activeView === key
+                                                    ? `2px solid ${colors.fuchsia}`
+                                                    : 'initial',
+                                            paddingBottom: 5,
+                                            marginRight: 10,
+                                            cursor: 'pointer',
+                                            fontSize: '1.25em'
+                                        }}>
+                                        {key}
+                                    </Text>
+                                </Ripple>
+                            ))}
+                    </FlexRow>
+                </div>
+                <div style={{ paddingLeft: 20 }}>
+                    <ProHeader style={{ marginTop: 20, color: colors.strongPink, width: 412 }}>
+                        {message}
+                    </ProHeader>
+                    {views[activeView].component}
+                </div>
+            </Mobile>
+            <Desktop>
+                <Wrapper
+                    style={{
+                        marginLeft: width > 1500 ? 250 : 90,
+                        marginTop: height < 850 ? 30 : 110
+                    }}>
+                    <div style={{ marginLeft: 215 }}>
+                        <Header />
+                        <FlexRow style={{ marginTop: height < 850 ? 15 : 40 }}>
+                            {Object.keys(AvailableAuthView)
+                                .filter((v) => v !== AvailableAuthView.ForgotPassword)
+                                .map((key) => (
+                                    <Ripple
+                                        key={key}
+                                        onClick={() => {
+                                            setActiveView(key as AvailableAuthView);
+                                            setMessage(null);
+                                        }}>
+                                        <Text
+                                            style={{
+                                                color:
+                                                    activeView === key
+                                                        ? colors.fuchsia
+                                                        : colors.slateGrey,
+                                                borderBottom:
+                                                    activeView === key
+                                                        ? `2px solid ${colors.fuchsia}`
+                                                        : 'initial',
+                                                paddingBottom: 5,
+                                                marginRight: 10,
+                                                cursor: 'pointer',
+                                                fontSize: '1.25em'
+                                            }}>
+                                            {key}
+                                        </Text>
+                                    </Ripple>
+                                ))}
+                        </FlexRow>
+                    </div>
+                    <div style={{ marginLeft: 215 }}>
+                        <ProHeader style={{ marginTop: 20, color: colors.strongPink, width: 412 }}>
+                            {message}
+                        </ProHeader>
+                        {views[activeView].component}
+                    </div>
+                </Wrapper>
+            </Desktop>
+        </>
     );
 };
 export default Authentication;
