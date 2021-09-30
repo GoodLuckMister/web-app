@@ -1,5 +1,6 @@
 import qs from 'qs';
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { RouteComponentProps } from 'react-router';
 
 import { FlexBox } from '../../components';
@@ -7,6 +8,15 @@ import BlogContainer from '../../containers/Blog';
 import { useIPros } from '../../hooks';
 import PageHeader from './components/PageHeader';
 import UserContainer from './components/UserContainer';
+
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+    return isMobile ? children : null;
+};
 
 const SingleIPro: React.FC<RouteComponentProps> = ({ location }) => {
     const [id, setID] = React.useState<string>((location.state as any)?.id);
@@ -32,13 +42,25 @@ const SingleIPro: React.FC<RouteComponentProps> = ({ location }) => {
     const nextIProID = iProIndex + 1 >= pros?.length ? null : pros && pros[iProIndex + 1].id;
     const iPro = pros && pros[iProIndex];
     return (
-        <div style={{ marginLeft: 15 }}>
-            <PageHeader nextIProID={nextIProID} category={pro?.category} />
-            <FlexBox style={{ marginTop: 60 }}>
-                <UserContainer ipro={iPro} />
-                <BlogContainer />
-            </FlexBox>
-        </div>
+        <>
+            <Mobile>
+                <div>
+                    <PageHeader nextIProID={nextIProID} category={pro?.category} />
+
+                    <UserContainer ipro={iPro} />
+                    <BlogContainer flexing={true} />
+                </div>
+            </Mobile>
+            <Desktop>
+                <div style={{ marginLeft: 15 }}>
+                    <PageHeader nextIProID={nextIProID} category={pro?.category} />
+                    <FlexBox style={{ marginTop: 60 }}>
+                        <UserContainer ipro={iPro} />
+                        <BlogContainer />
+                    </FlexBox>
+                </div>
+            </Desktop>
+        </>
     );
 };
 export default SingleIPro;

@@ -20,11 +20,13 @@ const Mobile = ({ children }) => {
 };
 interface BlContainer {
     check?: boolean;
+    flexing?: boolean;
 }
 
-const BlogContainer: React.FC<BlContainer> = ({ check = false }) => {
+const BlogContainer: React.FC<BlContainer> = ({ check = false, flexing = false }) => {
     const history = useHistory();
     const blogs = useBlogs();
+    console.log(flexing);
     return (
         <>
             <Mobile>
@@ -34,8 +36,14 @@ const BlogContainer: React.FC<BlContainer> = ({ check = false }) => {
                     renderThumbVertical={({ ...props }) => (
                         <div {...props} style={scrollbarsStyle} />
                     )}>
-                    <div style={{ marginTop: '-12px' }}>
-                        {blogs?.length === 0 && <Loader />}
+                    <div
+                        style={{
+                            marginTop: '-12px',
+                            ...(flexing
+                                ? { display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }
+                                : {})
+                        }}>
+                        {blogs?.length === 0 && !check && <Loader />}
                         {blogs.map((blog) => (
                             <BlogCard
                                 key={blog.id}
