@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import {
     FormHeader,
@@ -17,6 +18,14 @@ interface IRegister {
     onSubmit: (e: React.MouseEvent) => void;
     isLoading: boolean;
 }
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+    return isMobile ? children : null;
+};
 const Register: React.FC<IRegister> = ({ data, onChange, onSubmit, isLoading }) => {
     const canSubmit =
         data?.fullName &&
@@ -27,39 +36,81 @@ const Register: React.FC<IRegister> = ({ data, onChange, onSubmit, isLoading }) 
         isValidEmail(data?.mailAddress);
     return (
         <form>
-            <InputWrapper>
-                <FormHeader>Full name</FormHeader>
-                <Input
-                    style={{ width: 392 }}
-                    onChange={(e) => onChange('fullName', e.target.value)}
-                    value={data?.fullName ?? ''}
-                    placeholder="Enter your full name"
-                />
-            </InputWrapper>
-            <InputWrapper>
-                <FormHeader>Mail address</FormHeader>
-                <Input
-                    style={{ width: 392 }}
-                    onChange={(e) => onChange('mailAddress', e.target.value)}
-                    value={data?.mailAddress ?? ''}
-                    placeholder="Enter your mail address"
-                />
-            </InputWrapper>
-            <InputWrapper>
-                <FormHeader>Password</FormHeader>
-                <PasswordInput
-                    style={{ width: 392 }}
-                    onChange={(e) => onChange('password', e.target.value)}
-                    value={data?.password ?? ''}
-                    placeholder="Enter password"
-                />
-            </InputWrapper>
-            <InputWrapper>
-                <PrimaryButton style={{ width: 411 }} onClick={onSubmit} disabled={!canSubmit}>
-                    Register
-                </PrimaryButton>
-            </InputWrapper>
-            <div style={{ marginLeft: 190, marginTop: 20 }}>{isLoading && <Loader />}</div>
+            <Mobile>
+                <div style={{ marginLeft: 60 }}>
+                    <InputWrapper>
+                        <FormHeader>Full name</FormHeader>
+                        <Input
+                            style={{ width: 290 }}
+                            onChange={(e) => onChange('fullName', e.target.value)}
+                            value={data?.fullName ?? ''}
+                            placeholder="Enter your full name"
+                        />
+                    </InputWrapper>
+                    <InputWrapper>
+                        <FormHeader>Mail address</FormHeader>
+                        <Input
+                            style={{ width: 290 }}
+                            onChange={(e) => onChange('mailAddress', e.target.value)}
+                            value={data?.mailAddress ?? ''}
+                            placeholder="Enter your mail address"
+                        />
+                    </InputWrapper>
+                    <InputWrapper>
+                        <FormHeader>Password</FormHeader>
+                        <PasswordInput
+                            style={{ width: 290 }}
+                            onChange={(e) => onChange('password', e.target.value)}
+                            value={data?.password ?? ''}
+                            placeholder="Enter password"
+                        />
+                    </InputWrapper>
+                    <InputWrapper>
+                        <PrimaryButton
+                            style={{ width: 290 }}
+                            onClick={onSubmit}
+                            disabled={!canSubmit}>
+                            Register
+                        </PrimaryButton>
+                    </InputWrapper>
+                    <div style={{ marginLeft: 190, marginTop: 20 }}>{isLoading && <Loader />}</div>
+                </div>
+            </Mobile>
+            <Desktop>
+                <InputWrapper>
+                    <FormHeader>Full name</FormHeader>
+                    <Input
+                        style={{ width: 392 }}
+                        onChange={(e) => onChange('fullName', e.target.value)}
+                        value={data?.fullName ?? ''}
+                        placeholder="Enter your full name"
+                    />
+                </InputWrapper>
+                <InputWrapper>
+                    <FormHeader>Mail address</FormHeader>
+                    <Input
+                        style={{ width: 392 }}
+                        onChange={(e) => onChange('mailAddress', e.target.value)}
+                        value={data?.mailAddress ?? ''}
+                        placeholder="Enter your mail address"
+                    />
+                </InputWrapper>
+                <InputWrapper>
+                    <FormHeader>Password</FormHeader>
+                    <PasswordInput
+                        style={{ width: 392 }}
+                        onChange={(e) => onChange('password', e.target.value)}
+                        value={data?.password ?? ''}
+                        placeholder="Enter password"
+                    />
+                </InputWrapper>
+                <InputWrapper>
+                    <PrimaryButton style={{ width: 411 }} onClick={onSubmit} disabled={!canSubmit}>
+                        Register
+                    </PrimaryButton>
+                </InputWrapper>
+                <div style={{ marginLeft: 190, marginTop: 20 }}>{isLoading && <Loader />}</div>
+            </Desktop>
         </form>
     );
 };
