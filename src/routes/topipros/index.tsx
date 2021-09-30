@@ -2,6 +2,7 @@ import { useObserver } from 'mobx-react';
 import qs from 'qs';
 import React, { useEffect, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { useMediaQuery } from 'react-responsive';
 import { RouteComponentProps } from 'react-router';
 
 import avatar from '../../assets/img/avatar.png';
@@ -17,6 +18,15 @@ import Header from './components/Header';
 import IProCard from './components/IProCard';
 
 const middleStyle: React.CSSProperties = { position: 'fixed', top: '50%', left: '40%' };
+
+const Desktop = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 481 });
+    return isTablet ? children : null;
+};
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 480 });
+    return isMobile ? children : null;
+};
 
 const TopIPros: React.FC<RouteComponentProps> = ({ location, history }) => {
     const [, height] = useWindowSize();
@@ -86,36 +96,75 @@ const TopIPros: React.FC<RouteComponentProps> = ({ location, history }) => {
                     </div>
                 )}
             </div>
-            <FlexBox style={{ marginTop: 60 }}>
-                <Scrollbars
-                    style={{ height: height < 850 ? '65vh' : '71vh', width: '70vw' }}
-                    hideTracksWhenNotNeeded
-                    renderThumbVertical={({ ...props }) => (
-                        <div {...props} style={scrollbarsStyle} />
-                    )}>
-                    <FlexWrap style={{ marginTop: '-10px', marginLeft: '-20px' }}>
-                        {iPros?.map((pro, index) => (
-                            <IProCard
-                                key={index}
-                                image={pro.imageURL ? pro.imageURL : avatar}
-                                type={pro.type}
-                                score={pro.score}
-                                reviews={pro.reviews.length}
-                                spoq={pro.spoq.spoq}
-                                name={pro.name}
-                                onClick={() =>
-                                    history.push({
-                                        pathname: Routes.singleIPro.link,
-                                        search: `?id=${pro.id}`,
-                                        state: { id: pro.id }
-                                    })
-                                }
-                            />
-                        ))}
-                    </FlexWrap>
-                </Scrollbars>
-                <BlogContainer />
-            </FlexBox>
+            <Mobile>
+                <FlexBox style={{ marginTop: 30, width: 475, justifyContent: 'center' }}>
+                    <Scrollbars
+                        style={{ height: '71vh', width: '250px' }}
+                        hideTracksWhenNotNeeded
+                        renderThumbVertical={({ ...props }) => (
+                            <div {...props} style={scrollbarsStyle} />
+                        )}>
+                        <FlexWrap
+                            style={{
+                                marginTop: '-10px',
+                                marginLeft: '-20px',
+                                justifyContent: 'end'
+                            }}>
+                            {iPros?.map((pro, index) => (
+                                <IProCard
+                                    key={index}
+                                    image={pro.imageURL ? pro.imageURL : avatar}
+                                    type={pro.type}
+                                    score={pro.score}
+                                    reviews={pro.reviews.length}
+                                    spoq={pro.spoq.spoq}
+                                    name={pro.name}
+                                    onClick={() =>
+                                        history.push({
+                                            pathname: Routes.singleIPro.link,
+                                            search: `?id=${pro.id}`,
+                                            state: { id: pro.id }
+                                        })
+                                    }
+                                />
+                            ))}
+                        </FlexWrap>
+                    </Scrollbars>
+                    <BlogContainer check={true} />
+                </FlexBox>
+            </Mobile>
+            <Desktop>
+                <FlexBox style={{ marginTop: 60 }}>
+                    <Scrollbars
+                        style={{ height: height < 850 ? '65vh' : '71vh', width: '70vw' }}
+                        hideTracksWhenNotNeeded
+                        renderThumbVertical={({ ...props }) => (
+                            <div {...props} style={scrollbarsStyle} />
+                        )}>
+                        <FlexWrap style={{ marginTop: '-10px', marginLeft: '-20px' }}>
+                            {iPros?.map((pro, index) => (
+                                <IProCard
+                                    key={index}
+                                    image={pro.imageURL ? pro.imageURL : avatar}
+                                    type={pro.type}
+                                    score={pro.score}
+                                    reviews={pro.reviews.length}
+                                    spoq={pro.spoq.spoq}
+                                    name={pro.name}
+                                    onClick={() =>
+                                        history.push({
+                                            pathname: Routes.singleIPro.link,
+                                            search: `?id=${pro.id}`,
+                                            state: { id: pro.id }
+                                        })
+                                    }
+                                />
+                            ))}
+                        </FlexWrap>
+                    </Scrollbars>
+                    <BlogContainer />
+                </FlexBox>
+            </Desktop>
         </div>
     ));
 };

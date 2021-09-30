@@ -18,15 +18,18 @@ const Mobile = ({ children }) => {
 
     return isMobile ? children : null;
 };
+interface BlContainer {
+    check?: boolean;
+}
 
-const BlogContainer: React.FC = () => {
+const BlogContainer: React.FC<BlContainer> = ({ check = false }) => {
     const history = useHistory();
     const blogs = useBlogs();
     return (
         <>
             <Mobile>
                 <Scrollbars
-                    style={{ height: '1000px', width: '480px' }}
+                    style={{ height: '510px', width: check ? '215px' : '475px' }}
                     hideTracksWhenNotNeeded
                     renderThumbVertical={({ ...props }) => (
                         <div {...props} style={scrollbarsStyle} />

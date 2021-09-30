@@ -53,7 +53,7 @@ const SingleBlog: React.FC<RouteComponentProps> = ({ location }) => {
                     </div>
                     <FlexBox style={{ marginTop: 60, width: 475, justifyContent: 'center' }}>
                         <Scrollbars
-                            style={{ height: '75vh', width: '85vw' }}
+                            style={{ height: '75vh', width: 475 }}
                             hideTracksWhenNotNeeded
                             renderThumbVertical={({ ...props }) => (
                                 <div {...props} style={scrollbarsStyle} />

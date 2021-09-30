@@ -16,10 +16,10 @@ export const CardBox = styled.div`
     }
 `;
 export const CardBoxMobile = styled.div`
-    width: 331px;
-    height: 370px;
+    width: 240px;
+    height: 340px;
     border-radius: 6px;
-    margin: 15px 15px 15px 20x;
+    margin-bottom: 10px;
     box-shadow: 2px 2px 8px 1px rgba(21, 20, 59, 0.1);
     background-color: #ffffff;
     cursor: pointer;
